@@ -12,7 +12,7 @@ object JsonSerializableInstances
     def toJson(p: User): String =
       s"""{"name": "${p.name}", "age": ${p.age}}"""
 
-//  given JsonSerializable[User] =
+//  given userSerializer: JsonSerializable[User] =
 //    new JsonSerializable[User]:
 //      def toJson(p: User): String =
 //        s"""{"name": "${p.name}", "age": ${p.age}}"""
