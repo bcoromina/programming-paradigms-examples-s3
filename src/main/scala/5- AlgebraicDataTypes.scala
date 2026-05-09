@@ -31,6 +31,15 @@
   case class Node(value: Int, left: Tree, right: Tree) extends Tree
   case object Empty extends Tree
 
+  //Sum types with enums (new in scala 3)
+  enum TreeV:
+    case Node(value: Int, left: TreeV, right: TreeV)
+    case Empty
+
+  enum TreeG[+A]:
+    case Node(value: A, left: TreeG[A], right: TreeG[A])
+    case Empty
+
   // Union types new in scala 3
   // No extra allocation for the wrapper type like Either
   type IntOrString = Int | String // this is a type alias for the union type

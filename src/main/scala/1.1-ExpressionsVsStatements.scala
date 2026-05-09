@@ -1,5 +1,5 @@
-object ExpressionsVsStatements 
-
+@main def ExpressionsVsStatements(): Unit =
+  
   def getNumberFive() : Int = 5
 
   val result = (getNumberFive() * 2, getNumberFive() * 2)
