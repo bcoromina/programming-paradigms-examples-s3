@@ -11,9 +11,11 @@
   //   is the sum of the number of possible values of its subtypes.
 
   // Product types (case classes)
+  // Cartesian product in set theory.
   case class User(id: Int, name: String, email: String)
 
   // Sum types (sealed traits and case objects)
+  // Disjoint union in set theory.
   sealed trait Shape
   case class Circle(radius: Double) extends Shape
   case class Rectangle(width: Double, height: Double) extends Shape
@@ -90,7 +92,18 @@
 
   // Now I know how to build Monads? yes but... algebraic laws are missing!!!
 
+  // Intersection types are a powerful feature in Scala 3 that allows us to combine multiple types into one.
+  // Intersection like in set theory, the intersection of two sets A and B is the set of elements that are in both A and B.
 
+  trait HasName:
+    def name: String
+
+  trait HasAge:
+    def age: Int
+
+
+  def describe(x: HasName & HasAge): String =
+    s"${x.name} is ${x.age}"
 
 
 
