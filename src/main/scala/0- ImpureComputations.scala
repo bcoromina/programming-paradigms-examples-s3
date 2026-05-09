@@ -84,6 +84,6 @@ object ImpureComputations {
 
 }
 
-object MyTests extends App {
+@main def MyTests(): Unit = {
   ImpureComputations.printMessage("hola que tal")
 }
