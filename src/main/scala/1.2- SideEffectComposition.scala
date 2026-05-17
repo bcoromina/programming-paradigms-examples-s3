@@ -29,13 +29,13 @@
 
 
   // Better implementation using composition
-  def functionalAddOneWithSideEffect(x: Int): (Int,String) =
+  def functionalAddOneWithoutSideEffect(x: Int): (Int,String) =
     val result = x + 1
     (result, "Result: " + result)
 
   def functionalAddTwo(x: Int): (Int, List[String]) =
-    val result1 = functionalAddOneWithSideEffect(x)
-    val result2 = functionalAddOneWithSideEffect(result1._1)
+    val result1 = functionalAddOneWithoutSideEffect(x)
+    val result2 = functionalAddOneWithoutSideEffect(result1._1)
     (result2._1, List(result1._2, result2._2))
 
   def functionalAddTwoWithSideEffects(x: Int): Int =
