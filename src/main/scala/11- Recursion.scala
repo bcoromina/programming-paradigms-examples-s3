@@ -25,12 +25,7 @@ object Recursion:
   def impFibonacci(n: Int): List[Int] = {
     val arr: Array[Int] = new Array(n)
     for(i <- 0 until n){
-      if(i == 0){
-        arr(0) = 0
-      }
-      else if(i == 1){
-        arr(1) = 1
-      }
+      if (i <= 1) arr(i) = i
       else{
         arr(i) = arr(i-1) + arr(i-2)
       }
