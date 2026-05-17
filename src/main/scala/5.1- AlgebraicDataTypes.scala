@@ -67,6 +67,17 @@
     if b == 0 then new ArithmeticException("div by zero") else a / b
 
   // but I want ErrorOr to be a Monad, so I need to add map and flatMap
+
+  // Extension functions
+  case class User2(name: String, age: Int)
+
+  extension (u: User2)
+    def isAdult: Boolean = u.age >= 18
+
+  val user = User2("Alice", 20)
+  user.isAdult
+
+
   extension [A](e: ErrorOr[A])
     def map[B](f: A => B): ErrorOr[B] =
       e match
@@ -104,6 +115,12 @@
 
   def describe(x: HasName & HasAge): String =
     s"${x.name} is ${x.age}"
+
+  case class User3(name: String, age: Int) extends HasName, HasAge
+
+  describe(User3("Bob",33))
+
+  def describeName(x: HasName): String = s"Name: ${x.name}"
 
 
 
