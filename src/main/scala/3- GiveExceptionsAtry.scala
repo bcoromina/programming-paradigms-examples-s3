@@ -36,7 +36,7 @@ import scala.util.Failure
   
   // Functor (map: Try[A] => Try[B]). I have a (possible) value inside a box and, if present, I
   // apply a function to it (potentially transforming its type) and put the new value in the same kind 
-  // of box. Box is a data structure. If the data structure contains multiple values I aply the function
+  // of box. Box is a data structure. If the data structure contains multiple values I apply the function
   // to all of them.
   
   // Monad (flatMap): 
