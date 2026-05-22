@@ -59,7 +59,7 @@
     shape match
       case Circle(r) => s"Circle with radius $r"
       case Rectangle(w, h) => s"Rectangle with width $w and height $h"
-      //case Point => "Point"
+      case Point => "Point"
 
   // You can also have recursive data structures
   sealed trait Tree
@@ -77,6 +77,7 @@
 
   // Union types new in scala 3
   // No extra allocation for the wrapper type like Either
+ 
   type IntOrString = Int | String // this is a type alias for the union type
   val a: IntOrString = 23
   val b: IntOrString = "hello"
@@ -131,7 +132,7 @@
   val p = divide(10, 2).map(_ + 1)
   println("Result map: " + p)
 
-  val p2 = divide(10, 2).flatMap(x => divide(x, 2))
+  val p2: ErrorOr[Double] = divide(10, 2).flatMap(x => divide(x, 2))
   println("Result flatMap: " + p2)
 
   // Now I know how to build Monads? yes but... algebraic laws are missing!!!
@@ -145,7 +146,8 @@
   trait HasAge:
     def age: Int
 
-
+  class Person(val name: String, val age: Int, val iban: String) extends HasName, HasAge
+  
   def describe(x: HasName & HasAge): String =
     s"${x.name} is ${x.age}"
 

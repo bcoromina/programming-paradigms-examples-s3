@@ -42,8 +42,13 @@ import scala.util.Failure
   // Monad (flatMap): 
   //    - concatenation of effectful computations. functionalDivide(30, 23).flatMap(x => functionalDivide(x, 23))
   //    - Transform and flatten a nested data structure List(1,2).flatMap(x => List(x, x+1)) => List(1, 2, 2, 3)
-  
-  
+
+
+  def myRecover(x: Try[Double], r: Throwable => Double): Try[Double] = x match
+    case Failure(exception) => Try(r(exception))
+    case Success(value) => Success(value)
+
+
   // Specific operators
   val default = 0.0
   val p: Try[Double] = incrementedResult.recover((e: Throwable) => default)

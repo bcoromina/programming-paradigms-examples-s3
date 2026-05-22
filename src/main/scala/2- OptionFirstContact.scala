@@ -25,6 +25,12 @@
   println(incrementedValue) // Some(43)
   println(incrementedNoValue) // None
 
+  Option{
+    // This block will be executed and the result will be wrapped in Some
+    val x = 10
+    x + 1
+  }
+  
   val someOtherValue: Option[Int] = Some(10)
 
   // If both optionals are Some we want to add their values,
