@@ -158,4 +158,15 @@
   def describeName(x: HasName): String = s"Name: ${x.name}"
 
 
+  // smart constructors: a way to create instances of a class while enforcing some invariants.
+  // Invariants are encoded in the type system, so we can only create valid instances of the class.
+  // This is a powerful technique to ensure that our data is always in a valid state.
+  case class Email private(value: String) // private constructor, so we can only create Email instances through the companion object
 
+  object Email:
+    def apply(value: String): Option[Email] =
+      if value.contains("@") then Some(new Email(value))
+      else None
+
+  val email1: Option[Email] = Email("")
+  val email2: Option[Email] = Email("bcoromina@gmail.com")
