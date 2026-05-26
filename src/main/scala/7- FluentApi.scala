@@ -6,7 +6,7 @@
   
   val oneList = 23 :: List(1,2,3)
 
-  val myList = 1 :: 2 :: 3 :: Nil
+  val myList = 23 :: 1 :: 2 :: 3 :: Nil
 
   List(1,2,3) match {
     case first :: second :: tail =>
@@ -49,8 +49,17 @@
     list.foldLeft(monoidInstance.zero)(monoidInstance.combine)
 
 
+  // Monoid Instances for user and int
+  given Monoid[Int] with
+    def zero: Int = 0
+    def combine(a: Int, b: Int): Int = a + b
 
-  // groupBy key using fold left
+  class User(val name: String, val age: Int)
+  given Monoid[User] with
+    def zero: User = new User("", 0)
+    def combine(a: User, b: User): User = new User(a.name + b.name, a.age + b.age)
+
+  // groupBy key using fold left (and sum the values)
   List( ("a",1), ("b", 3), ("a", 5), ("b",1) ).foldLeft(Map.empty[String, Int]){ case (acc, (k, v)) =>
     val currentValue = acc.getOrElse(k, 0)
     acc.updated(k, currentValue + v) //is not update, updated returns a new map.
