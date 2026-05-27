@@ -17,3 +17,5 @@ case class Connection[S <: ConnectionState]()
 
   def execute(conn: Connection[Open], sql: String): Unit =
     println(s"Executing: $sql")
+    
+  open(Connection[Closed]())  

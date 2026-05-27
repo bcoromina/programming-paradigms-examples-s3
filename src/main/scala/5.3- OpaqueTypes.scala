@@ -18,6 +18,8 @@ case class UserIdV(value: Int)
 
 @main def opaqueTypesMain(): Unit =
   val userId: UserId = UserId(123)
+  //val i: Int = userId // This line would not compile because UserId is opaque and cannot be treated as an Int out
+  
   println(userId.value) // prints 123
 
   // The following line would not compile because UserId is opaque and cannot be treated as an Int

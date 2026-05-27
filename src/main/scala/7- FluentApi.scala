@@ -4,6 +4,10 @@
   List(1,2,3).last
   List(1,2,3).head
   
+  trait MyList[A]
+  case class MyCons[A](head: A, tail: MyList[A]) extends MyList[A]
+  case object MyNil extends MyList[Nothing]
+  
   val oneList = 23 :: List(1,2,3)
 
   val myList = 23 :: 1 :: 2 :: 3 :: Nil
@@ -84,9 +88,17 @@
   
   
   // mapValues with fold left
-  Map("a" -> List(1, 5), "b" -> List(3, 1)).foldLeft(Map.empty[String,Int]){
-    case (acc, (k, v)) => acc.updated(k, v.sum)
-  }
+  def mapValues(m: Map[String, List[Int]], f: List[Int] => Int) : Map[String, Int] =
+    m.foldLeft(Map.empty[String,Int]){
+      case (acc, (k, v)) => acc.updated(k, f(v))
+    }
+  
+  extension (m: Map[String, List[Int]])
+    def mapValues2(f: List[Int] => Int) :  Map[String, Int] = m.foldLeft(Map.empty[String,Int]){
+      case (acc, (k, v)) => acc.updated(k, f(v))
+    }
+  Map("a" -> List(1, 5), "b" -> List(3, 1)).mapValues2(l => l.sum)
+  
 
   // Sets
   val a = Set(1,2,3,4)
@@ -106,10 +118,10 @@
   val transformedNaturals: Map[String, LazyList[Int]] = naturals
     .map(_ + 2)
     .groupBy(e => if (e % 2 == 0) "even" else "odd")
-   
+
   //[Imperative] materialize. Execute the computation.
    val materialized: Map[String, List[Int]] = 
-     transformedNaturals.view.mapValues(_.take(5).toList).toMap
+     transformedNaturals.view.mapValues(l => l.take(5).toList).toMap
 
 
 
