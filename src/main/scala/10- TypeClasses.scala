@@ -29,7 +29,9 @@ object JsonSerializableInstances:
     // Composition: If I know how to serialize T, I can serialize Option[T] without knowing the details of T.
     given optionJsonSerializable[T: JsonSerializable]: JsonSerializable[Option[T]] with
       def toJsonT(v: Option[T]): String = v match
-        case Some(value) => summon[JsonSerializable[T]].toJsonT(value)
+        case Some(value) =>
+          val p: JsonSerializable[T] = summon[JsonSerializable[T]]
+          p.toJsonT(value)
         case None        => "{}" // or null. null is a valid json value
 
 
@@ -38,8 +40,8 @@ object JsonSerializableInstances:
 //      def toJsonD: String =
 //        summon[JsonSerializable[T]].toJson(value)
 
-def toJson[T](value: T)(using js: JsonSerializable[T]): String =
-  js.toJsonT(value)
+//def toJson[T](value: T)(using js: JsonSerializable[T]): String =
+//  js.toJsonT(value)
 
 //def toJson[T: JsonSerializable](value: T): String =
 //  summon[JsonSerializable[T]].toJsonT(value)
@@ -47,11 +49,11 @@ def toJson[T](value: T)(using js: JsonSerializable[T]): String =
 // the required type classes are the properties of the type.
 def printList[T: JsonSerializable](l: List[T]): Unit =
   l.foreach { item =>
-    println(s"Object: ${item.toJsonExt}")
+    println(s"Object: ${item.toJson}")
   }
 
 extension [T: JsonSerializable](value: T)
-  def toJsonExt: String =
+  def toJson: String =
     summon[JsonSerializable[T]].toJsonT(value)
 
 
@@ -70,8 +72,8 @@ extension [T: JsonSerializable](value: T)
 
   val user = User("Bernat", 44)
 
-  println(user.toJsonExt)
+  println(user.toJson)
 
-  println(Option(user).toJsonExt)
+  println(Option(user).toJson)
 
   println(toJson(user))
