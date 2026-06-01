@@ -70,6 +70,11 @@
                 leftSum + rightSum
               }
             }
+//            for{
+//              leftSum <- sumT(l)
+//              rightSum <- sumT(r)
+//            }yield leftSum + rightSum
+
           )
 
     def skewed(n: Int): Tree =
