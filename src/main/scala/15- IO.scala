@@ -11,9 +11,15 @@
 
 
     def readUserFromDb(id: Int): IO[String] =
-      IO(() => s"User$id")
+      IO(() =>
+        println("hdosh")
+        s"User$id")
 
-    for{
+    case class User(id: Int, name: String)
+    readUserFromDb(1)
+    val p: IO[User] = for{
       a <- IO(() => 1)
       b <- readUserFromDb(a)
-    }yield a + b
+    }yield User(1, b)
+
+    p.unSafeRun
