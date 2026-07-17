@@ -1,0 +1,5 @@
+package exercices
+
+class correccion {
+
+}
